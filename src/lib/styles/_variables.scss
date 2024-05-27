@@ -1,0 +1,37 @@
+
+
+
+
+// Font Weights
+$weight-light: 200; 
+$weight-regular: 300; 
+$weight-semibold: 400;
+$weight-bold: 500; 
+$weight-black: 700; 
+
+// Colors
+// Semantic
+$color-foreground: #2F2F2F; 
+$color-tint: #2E576B; 
+$color-midground: #BCBCBC; 
+$color-shade: #F8F8F8; 
+$color-background: #FFFFFF; 
+$color-elevate: #FAFAFC;
+
+// Brand
+$color-brand: #E16449; 
+$color-info: #1a73e8;
+$color-error: #FF5E6E; 
+$color-gold: #FF8800; 
+$color-success: #2BD84E;
+
+
+// Typefaces
+$typeface-body:
+    "Inter",
+    "Mulish",
+    sans-serif;
+
+$typeface-heading:
+    "Nanum Myeongjo",
+    serif;

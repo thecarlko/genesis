@@ -1,0 +1,146 @@
+
+
+
+
+
+@use "$lib/styles/variables" as app;
+
+* {
+    padding: 0px; 
+    border: none; 
+    margin: 0px; 
+    box-sizing: border-box;
+
+    color: inherit; 
+    fill: inherit;
+    z-index: inherit;
+    stroke: inherit; 
+    stroke-width: inherit;
+
+    font-family: app.$typeface-body;
+    font-size: inherit;
+    font-weight: app.$weight-regular;
+    line-height: 132%;
+}
+
+html {
+
+    position: relative;
+
+    font-size: 16px;
+    stroke-width: 1.0px;
+    line-height: 150%;
+    background-color: app.$color-background;
+}
+
+@media screen and (min-width: 840px) and (min-height: 680px)
+{
+    html 
+    {
+        font-size: 18px;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1.5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1.05rem;
+    font-weight: app.$weight-bold;
+}
+
+p, input {
+    line-height: 150%;
+}
+
+
+a {
+    color: app.$color-foreground;
+}
+
+
+button, a.button {
+    padding: 0.3rem 1rem; 
+    border-radius: 2rem; 
+    background-color: app.$color-brand;
+    color: #EBEFF2;
+    width: max-content;
+   
+    &:hover {
+        box-shadow: 0px 0px 3px 0px;
+    }
+}
+  
+button.secondary, a.button.secondary {
+    background-color: rgba(78, 95, 228, 0.16);
+    color: app.$color-brand;
+    transition: box-shadow 220ms ease-in-out;
+
+    &:disabled {
+        border: none;
+    }
+
+    &:hover {
+        box-shadow: 0px 0px 3px 0px;
+    }
+}
+
+button.tertiary, a.button.tertiary {
+    background-color: transparent;
+    border: 0.8px solid app.$color-brand;
+    color: app.$color-brand;       
+    transition: box-shadow 220ms ease-in-out;
+
+    &:disabled {
+        border: none;
+        color: app.$color-midground;
+        cursor: not-allowed;
+    }
+
+    &:hover {
+        box-shadow: 0px 0px 3px 0px;
+
+    }
+}
+
+button, a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:disabled {
+    background-color: app.$color-shade;
+    color: app.$color-midground;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+
+* > img {
+    max-width: 100%; 
+    max-height: 100%;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+.icon {
+    position: relative;
+
+    > svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
