@@ -1,6 +1,20 @@
 
 
 
+<script lang="ts">
+
+    import Icon from "$lib/components/Icon.svelte";
+
+
+    let textarea: HTMLTextAreaElement;
+
+    function onTextareaInput() {
+       textarea.style.height = (textarea.scrollHeight) + 'px';
+    }
+
+</script>
+
+
 <section id="header">
     <div class="greeting">
         <h1>Good Morning, 👋<br><span>Anizan</span></h1>
@@ -15,13 +29,26 @@
         {/each }
 
     </div>
+
+    <textarea bind:this={ textarea } on:input={ onTextareaInput } on:blur={ onTextareaInput } name="" id="" placeholder="Search for title, student, category ..."></textarea>
 </section>
 
 <section id="manage">
 
-    <div class="actions">
+    <h2>What would you like to do today?</h2>
+
+    <div class="buttons">
         <button class="tertiary">Check In/Out</button>
         <button>Manage Catalogue</button>
+    </div>
+
+    <div class="actions">
+        { #each Array(5) as _ }
+            <a href="/inventory">
+                <Icon></Icon>
+                <p>Manage <br> Inventory</p>
+            </a>
+        {/each }
     </div>
 
 </section>
@@ -39,19 +66,79 @@
         margin-top: 12rem;
     }
 
+    section#manage {
+        padding: 3rem 8vw 2rem 8vw;
+        background-color: app.$color-background;
+        min-height: 64vh;
+        border-radius: 2rem 2rem 0px 0px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+
+
+        div.buttons {
+            display: none;
+            justify-content: flex-end;
+            margin-top: 4rem;
+            gap: 1rem;
+
+        }
+
+        div.actions {
+            display: grid;
+            gap: 1rem 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        }
+
+        div.actions > a {
+            padding: 1rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0,0,0,.1);
+            background-color: app.$color-background;
+            box-shadow: 0 0 2px 0 rgba(0,0,0,.05),0 4px 6px 0 rgba(0,0,0,.02);
+
+            &:hover {
+                filter: app.$drop-shadow;
+            }
+        }
+    }
+
     section#header {
 
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1.5fr 1fr;
         grid-template-rows: 1fr;
         gap: 3rem 4vw;
 
-        margin-top: 10rem;
+        margin-top: 6rem;
         margin-bottom: 2rem;
 
-        @media screen and (max-width: 900px) {
+        @media screen and (max-width: 720px) {
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr 1fr;
+            grid-template-rows: auto auto auto;
+
+            textarea { grid-column: unset !important; }
+        }
+
+        textarea {
+            background-color: transparent;
+            width: 100%;
+            grid-column: span 2;
+            resize: none;
+            margin-top: 2rem;
+
+            cursor: pointer;
+
+            font-weight: app.$weight-light;
+            font-size: 1.5em;
+            height: 1.8em;
+            line-height: 1.8em;
+
+            &:focus { outline: none; }
+            &::placeholder {
+                font-weight: 200;
+            }
         }
 
         div.greeting {
@@ -59,6 +146,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            padding-top: 1rem;
 
             &::before {
                 content: "";
@@ -96,18 +184,7 @@
         }
     }
 
-    section#manage {
-        margin: 2rem 0px;
-        background-color: app.$color-background;
-        min-height: 64vh;
-
-        div.actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 4rem;
-            gap: 1rem;
-        }
-    }
+    
 </style>
 
 
