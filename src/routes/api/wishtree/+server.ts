@@ -18,68 +18,50 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
 
-export const GET: RequestHandler = async({ }) => {
-
+export const GET: RequestHandler = async () => {
     try {
-        const data = query(collection(database, "wishes"), limit(120));
-        const snapshot = await getDocs(data);
-    
-        const wishes: any[] = [];
-    
-        snapshot.forEach((doc) => {
-            wishes.push({ id: doc.id, ...doc.data() });
-        });
-
-        return new Response(JSON.stringify(wishes), {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type',
-            },
-            status: 200
-        });
+      const data = query(collection(database, "wishes"), limit(120));
+      const snapshot = await getDocs(data);
+  
+      const wishes: any[] = [];
+  
+      snapshot.forEach((doc) => {
+        wishes.push({ id: doc.id, ...doc.data() });
+      });
+  
+      return new Response(JSON.stringify(wishes), {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        status: 200
+      });
     } catch (error) {
-        console.error('Error retrieving documents:', error);
-        return new Response(JSON.stringify({ error: 'Failed to retrieve documents' }), {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type',
-            },
-            status: 500
-        });
+      console.error('Error retrieving documents:', error);
+      return new Response(JSON.stringify({ error: 'Failed to retrieve documents' }), {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        status: 500
+      });
     }
+  };
+  
 
-
-
-}
-
-export const POST: RequestHandler = async ({ request }) => {
-
-    
+  export const POST: RequestHandler = async ({ request }) => {
     try {
-        const { message } = await request.json();
-    
-        const document = await addDoc(collection(database, "wishes"), { message: message });
-        console.log(document)
-    
-        return new Response("Successfully added document", {
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-            status: 200
-        });
-
+      const { message } = await request.json();
+      const document = await addDoc(collection(database, "wishes"), { message: message });
+      console.log(document);
+  
+      return new Response("Successfully added document", {
+        status: 200
+      });
     } catch (error) {
-        return new Response(JSON.stringify({ error: 'Failed to add document' }), {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            status: 500
-        });
+      console.error('Error adding document:', error);
+      return new Response(JSON.stringify({ error: 'Failed to add document' }), {
+        status: 500
+      });
     }
-}
+  };
 
 
