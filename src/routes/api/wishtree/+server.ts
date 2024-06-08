@@ -48,12 +48,30 @@ export const GET: RequestHandler = async({ }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
 
-    const { message } = await request.json();
+    
+    try {
+        const { message } = await request.json();
+    
+        const document = await addDoc(collection(database, "wishes"), { message: message });
+        console.log(document)
+    
+        return new Response("Successfully added document", {
+            headers: {
+                'Content-Type': 'text/plain',
+                'Access-Control-Allow-Origin': '*', // Add CORS header
+            },
+            status: 200
+        });
 
-    const document = await addDoc(collection(database, "wishes"), { message: message });
-    console.log(document)
-
-    return new Response("Successfully added document");
+    } catch (error) {
+        return new Response(JSON.stringify({ error: 'Failed to add document' }), {
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*', // Add CORS header
+            },
+            status: 500
+        });
+    }
 }
 
 
