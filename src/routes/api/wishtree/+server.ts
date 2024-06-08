@@ -58,7 +58,6 @@ export const POST: RequestHandler = async ({ request }) => {
         return new Response("Successfully added document", {
             headers: {
                 'Content-Type': 'text/plain',
-                'Access-Control-Allow-Origin': '*', // Add CORS header
             },
             status: 200
         });
@@ -67,7 +66,6 @@ export const POST: RequestHandler = async ({ request }) => {
         return new Response(JSON.stringify({ error: 'Failed to add document' }), {
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*', // Add CORS header
             },
             status: 500
         });
