@@ -2,7 +2,8 @@
 
 
 // Shadows
-$drop-shadow: drop-shadow(0rem 0rem 1rem rgba(40, 42, 54, 0.08));
+$drop-shadow-300: drop-shadow(0rem 0rem 0.5rem rgba(40, 42, 54, 0.08));
+$drop-shadow-400: drop-shadow(0.2rem 0.2rem 1.0rem rgba(40, 42, 54, 12%));
 
 
 // Font Weights
@@ -15,11 +16,11 @@ $weight-black: 700;
 // Colors
 // Semantic
 $color-foreground: #2F2F2F; 
-$color-tint: #2E576B; 
-$color-midground: #BCBCBC; 
-$color-shade: #F8F8F8; 
-$color-background: #FFFFFF; 
-$color-elevate: #FAFAFC;
+$color-tint: #8B8D98; 
+$color-midground: #C7C9D1; 
+$color-shade: #DDDFE8; 
+$color-background: #FFFFFF;
+$color-elevate: #F1F2F6;
 
 // Brand
 $color-brand: #E16449; 

@@ -13,9 +13,9 @@
 
 <main>
     <nav>
-        <div>
+        <a href="/">
             <Icon frame={[2,2]}><img src="/icons/logo.png" alt="Logo"></Icon>
-        </div>
+        </a>
         
 
         <div class="pfp"><Pfp></Pfp></div> 
@@ -33,7 +33,7 @@
     @use "$lib/styles/variables" as app;
 
     main {
-        background-color: app.$color-shade;
+        // background-color: app.$color-shade;
     }
 
     nav {

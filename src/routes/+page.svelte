@@ -4,13 +4,35 @@
 <script lang="ts">
 
     import Icon from "$lib/components/Icon.svelte";
+    import { goto } from '$app/navigation';
+    import Textfield from "$lib/components/Textfield.svelte";
 
+    // Variables
+    const actions = [
+        { lead: "Manage", title: "Inventory", anchor: "/inventory" },
+        { lead: "Manage", title: "Inventory", anchor: "/inventory" }
+    ];
 
+    let studentID = "";
+    let assetID = "";
+
+    // Elements
     let textarea: HTMLTextAreaElement;
 
-    function onTextareaInput() {
+    function onTextareaInput(event: Event) {
        textarea.style.height = (textarea.scrollHeight) + 'px';
     }
+
+    function onTextareaKeyDown(event: KeyboardEvent) {
+        if (event.key != "Enter") { return; }
+
+        event.preventDefault();
+        goto("/search/tricks")
+        
+
+    }
+
+
 
 </script>
 
@@ -22,7 +44,7 @@
 
 
     <div class="tasks">
-        <h3>Tasks</h3>
+        <h3>Recommended Tasks</h3>
 
         { #each Array(4) as _ }
         <p>The Algebra of Wealth</p>
@@ -30,7 +52,20 @@
 
     </div>
 
-    <textarea bind:this={ textarea } on:input={ onTextareaInput } on:blur={ onTextareaInput } name="" id="" placeholder="Search for title, student, category ..."></textarea>
+    <!-- <textarea bind:this={ textarea } on:keydown={ onTextareaKeyDown } on:input={ onTextareaInput } on:blur={ onTextareaInput } name="" id="" placeholder="Search for title, student, category ..."></textarea> -->
+</section>
+
+<section id="circulation">
+    <label for="">Quick Scan</label>
+
+    <div class="inputs">
+        <Textfield placeholder="Student ID" value={ studentID }></Textfield>
+        <Textfield placeholder="Asset ID" value={ assetID }></Textfield>
+    </div>
+    <div class="actions">
+        <button disabled={ studentID == "" } class="tertiary">Check In</button>
+        <button disabled={ studentID == "" } class="tertiary">Check Out</button>
+    </div>
 </section>
 
 <section id="manage">
@@ -43,15 +78,17 @@
     </div>
 
     <div class="actions">
-        { #each Array(5) as _ }
-            <a href="/inventory">
+        { #each actions as { lead, title, anchor }}
+            <a href={ anchor }>
                 <Icon></Icon>
-                <p>Manage <br> Inventory</p>
+                <p>{ lead }<br>{ title }</p>
             </a>
         {/each }
     </div>
-
 </section>
+
+
+
 
 
 
@@ -66,10 +103,40 @@
         margin-top: 12rem;
     }
 
+
+    section#circulation {
+
+        width: 100%;
+        margin: 0px auto;
+
+        > label {
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+
+        div.inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1rem;
+            margin-bottom: 1rem;;
+        }
+
+        div.actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            button {
+                width: 7rem;
+            }
+        }
+    }
+
     section#manage {
         padding: 3rem 8vw 2rem 8vw;
         background-color: app.$color-background;
-        min-height: 64vh;
         border-radius: 2rem 2rem 0px 0px;
 
         display: flex;
@@ -99,10 +166,12 @@
             box-shadow: 0 0 2px 0 rgba(0,0,0,.05),0 4px 6px 0 rgba(0,0,0,.02);
 
             &:hover {
-                filter: app.$drop-shadow;
+                filter: app.$drop-shadow-400;
             }
         }
     }
+
+    
 
     section#header {
 
@@ -111,8 +180,8 @@
         grid-template-rows: 1fr;
         gap: 3rem 4vw;
 
-        margin-top: 6rem;
-        margin-bottom: 2rem;
+        margin-top: 10rem;
+        margin-bottom: 4rem;
 
         @media screen and (max-width: 720px) {
             grid-template-columns: 1fr;
@@ -140,6 +209,10 @@
                 font-weight: 200;
             }
         }
+
+        textarea:hover::placeholder {
+            color: app.$color-brand;
+        };
 
         div.greeting {
             position: relative;
